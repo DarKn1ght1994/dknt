@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- <script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<style type="text/css">
+	.row {
+		width:20%;
+		margin:5% 5%;
+		float:left;
+	}
+	h1 {
+		margin:5% 0 0 5%;
+	}
+	.table {
+		display: none;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<h1>艾肯属性提升率计算</h1>
+	</div>
+	<div class="row">
+		<label>输入属强值:</label>
+		<input id="attribute">
+		<table id="t_attribute">
+			<tr>
+				<th>数量</th>
+				<th>增加属强</th>
+				<th>属强值</th>
+				<th>提升率</th>
+			</tr>
+		</table>
+		<p>参考公式:</br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提升率=增加属强值/(当前属强值+220)
+		</p>
+	</div>
+	<div class="row">
+		<label>输入独立值:</label>
+		<input id="independent">
+		<table id="t_independent">
+			<tr>
+				<th>数量</th>
+				<th>增加独立</th>
+				<th>独立值</th>
+				<th>提升率</th>
+			</tr>
+		</table>
+		<p>参考公式:</br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提升率=增加独立值/当前独立值
+		</p>	
+	</div>
+	<div class="row">
+		<button id="query">查询</button>
+	</div>
+<script>
+	for(var i=1;i<13;i++){
+		$("#t_attribute").append("<tr class='table'><td>"+i+"</td><td>+12</td><td id='attribute"+i+"'></td><td id='attribute_rate"+i+"'></td></tr>");
+		$("#t_independent").append("<tr class='table'><td>"+i+"</td><td>+78</td><td id='independent"+i+"'></td><td id='independent_rate"+i+"'></td></tr>");
+	}
+	$('#query').click(function(){
+
+		var a_a0 = $('#attribute').val();
+		var a_a = Number(a_a0);
+		var a_b = new Array();
+		var a_c = new Array();
+		var a_d = new Array();
+
+		var i_a0 = $('#independent').val();
+		var i_a = Number(i_a0);
+		var i_b = new Array();
+		var i_c = new Array();
+		var i_d = new Array();
+
+		if(a_a0!=""||i_a0!=""){
+			if(a_a0!=""){
+				$("#t_attribute tr").removeClass("table");
+				for(var i=1;i<13;i++){
+					a_b[i] = a_a + 12 * i;
+					a_c[i] = 1200 / (a_b[i] + 208);
+					a_d[i] = a_c[i].toFixed(2);
+					$('#' + 'attribute' + [i]).html(a_b[i]);
+					$('#' + 'attribute_rate' + [i]).html(a_d[i] + '%');
+				}
+			}
+			if(i_a0!=""){
+				$("#t_independent tr").removeClass("table");
+				for(var i=1;i<13;i++){
+					i_b[i] = i_a + 78 * i;
+					i_c[i] = 7800 / (i_b[i] - 78);
+					i_d[i] = i_c[i].toFixed(2);
+					$('#' + 'independent' + [i]).html(i_b[i]);
+					$('#' + 'independent_rate' + [i]).html(i_d[i] + '%');
+				}
+			}
+		}else{
+			// alert(111);
+		}	
+	});
+</script>
+</body>
+</html>
